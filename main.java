@@ -44,9 +44,8 @@ class CoffeeMachine {
     private CoffeeType coffeeType;
     private LackOfIngr lackOfIngr;
 	
-	public Scanner scanner;
      
-    public CoffeeMachine(Scanner scanner) {
+    public CoffeeMachine() {
         this.money = 550;
         this.water = 400;
         this.milk = 540;
@@ -56,7 +55,6 @@ class CoffeeMachine {
         this.refillIngr = RefillIngr.PROMPT;
         this.coffeeType = CoffeeType.PROMPT;
         this.lackOfIngr = LackOfIngr.NONE;
-		this.scanner = scanner;
     }
 
     private void collectMoney() {
@@ -183,7 +181,7 @@ class CoffeeMachine {
                 } else if (("3".equals(input))) {
                     this.coffeeType = CoffeeType.CAPPUCCINO;
                 } else {
-                    System.out.println("Incorrect input! Try again!");
+                    System.out.println("Incorrect input! Try again!\n");
                     System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
                     return;
                 }
@@ -258,17 +256,17 @@ class CoffeeMachine {
         }
     }
 
-	public void readUserInput() {
+	public void readUserInput(Scanner scanner) {
 
         String userInput = new String();
 
         while (true) {
             if (machineStatus == MachineStatus.MAIN_MENU) {
                 System.out.println("Write action (buy, fill, take, remaining, exit):");
-                userInput = this.scanner.nextLine();
+                userInput = scanner.nextLine();
                 checkUserAction(userInput);
             } else {
-                userInput = this.scanner.nextLine();
+                userInput = scanner.nextLine();
                 checkMachineStatus(userInput);
             } 
         }
@@ -279,8 +277,8 @@ public class main {
 	public static void main(String[] args) {
         
         Scanner scanner = new Scanner(System.in);
-        CoffeeMachine coffeeMachine = new CoffeeMachine(scanner);
+        CoffeeMachine coffeeMachine = new CoffeeMachine();
 
-		coffeeMachine.readUserInput();
+		coffeeMachine.readUserInput(scanner);
 	}
 }
