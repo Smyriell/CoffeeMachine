@@ -33,6 +33,7 @@ enum LackOfIngr {
 }
 
 class CoffeeMachine {
+    
     private int money;
     private int water;
     private int milk = 540;
@@ -110,13 +111,21 @@ class CoffeeMachine {
         }
         return this.lackOfIngr == LackOfIngr.NONE ? true : false;
     }
+
+    private void printLackState() {
+
+        System.out.println("Sorry, not enough " + this.lackOfIngr.name().toLowerCase() + "!\n");
+        this.lackOfIngr = LackOfIngr.NONE;
+        this.coffeeType = CoffeeType.PROMPT;
+
+    }
     
     private void makeCoffee() {
 
         switch (this.coffeeType) {
             case ESPRESSO:
                 if (!(checkEnoughIngredients())) {
-                    System.out.println("Sorry, not enough " + this.lackOfIngr.name().toLowerCase() + "!\n");
+                    printLackState();
                     return;
                 }
                 water -= 250;
@@ -126,7 +135,7 @@ class CoffeeMachine {
                 break;
             case LATTE:
                 if (!(checkEnoughIngredients())) {
-                    System.out.println("Sorry, not enough " + this.lackOfIngr.name().toLowerCase() + "!\n");
+                    printLackState();
                     return;
                 }
                 water -= 350;
@@ -138,7 +147,7 @@ class CoffeeMachine {
             
             case CAPPUCCINO:
                 if (!(checkEnoughIngredients())) {
-                    System.out.println("Sorry, not enough " + this.lackOfIngr.name().toLowerCase() + "!\n");
+                    printLackState();
                     return;
                 }
                 water -= 200;
@@ -154,6 +163,7 @@ class CoffeeMachine {
     }
     
     private void chooseCoffee(String input) {
+
         if ("back".equals(input)) {
             this.machineStatus = MachineStatus.MAIN_MENU;
             this.coffeeType = CoffeeType.PROMPT;
